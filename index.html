@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="东方阴蝶梦 ～ Requiem of the Night Sparrow — 夜雀与亡灵公主的同人单面弹幕 STG，附 AutoplayAI。" />
+    <meta name="theme-color" content="#050509" />
+    <title>东方阴蝶梦 ～ Requiem of the Night Sparrow</title>
+    <link rel="icon" href="data:," />
+    <style>
+      html, body { margin: 0; padding: 0; background: #050509; height: 100%; }
+      body { display: flex; align-items: center; justify-content: center; overflow: hidden; }
+      #app { line-height: 0; }
+      canvas {
+        width: min(100vw, calc(100vh * 4 / 3));
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        background: #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"><canvas id="game" width="640" height="480"></canvas></div>
+    <script defer src="dist/rotns.js"></script>
+  </body>
+</html>

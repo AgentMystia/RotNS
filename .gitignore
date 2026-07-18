@@ -1,0 +1,7 @@
+node_modules/
+tmp/
+*.log
+# 本地开发资料（含原作参考切图与执行计划，不随仓库发布）
+reference/
+PLAN.md
+output/

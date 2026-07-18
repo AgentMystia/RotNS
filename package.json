@@ -1,0 +1,20 @@
+{
+  "name": "rotns",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "esbuild src/main.ts --bundle --format=iife --outfile=dist/rotns.js --sourcemap",
+    "dev": "esbuild src/main.ts --bundle --format=iife --outfile=dist/rotns.js --sourcemap --watch --servedir=.",
+    "ai:bench": "node tools/rotns-bench.mjs",
+    "smoke": "node tools/smoke-boot.mjs",
+    "render": "node tools/render-frames.mjs",
+    "assets:pp": "python3 scripts/rotns_postprocess.py --manifest scripts/rotns_assets_manifest.json && python3 scripts/rotns_contact_sheet.py"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "typescript": "^5.6.0",
+    "canvas": "^3.2.3"
+  }
+}

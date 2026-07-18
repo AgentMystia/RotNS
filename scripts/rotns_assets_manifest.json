@@ -1,0 +1,45 @@
+{
+  "items": [
+    {"id": "yuyuko_portrait", "src": "yuyuko_portrait-v1.png", "mode": "chroma", "size": [300, 450], "out": "yuyuko_portrait.png", "trim": true},
+    {"id": "yuyuko_idle", "src": "yuyuko_idle-v1.png", "mode": "chroma", "size": [96, 120], "out": "yuyuko_idle.png", "trim": true},
+    {"id": "mystia_idle", "src": "mystia_idle-v1.png", "mode": "chroma", "size": [56, 72], "out": "mystia_idle.png", "trim": true},
+    {"id": "mystia_bank", "src": "mystia_bank-v1.png", "mode": "chroma", "size": [56, 72], "out": "mystia_bank.png", "trim": true},
+    {"id": "opt_orb", "src": "opt_orb-v1.png", "mode": "additive", "size": [20, 20], "out": "opt_orb.png", "trim": true},
+    {"id": "shot_feather", "src": "shot_feather-v1.png", "mode": "additive", "size": [16, 32], "out": "shot_feather.png", "trim": true},
+    {"id": "shot_wave", "src": "shot_wave-v1.png", "mode": "additive", "size": [14, 28], "out": "shot_wave.png", "trim": true},
+    {"id": "blt_needle", "src": "blt_needle-v1.png", "mode": "additive", "size": [10, 26], "out": "needle.png", "trim": true,
+     "tints": [
+       {"suffix": "needle_pink", "rgb": [255, 154, 213]},
+       {"suffix": "needle_blue", "rgb": [122, 184, 255]},
+       {"suffix": "needle_red", "rgb": [255, 90, 74]}
+     ]},
+    {"id": "blt_ball_s", "src": "blt_ball_s-v1.png", "mode": "additive", "size": [16, 16], "out": "ball_s.png", "trim": true,
+     "tints": [
+       {"suffix": "ball_s_pink", "rgb": [255, 176, 224]},
+       {"suffix": "ball_s_blue", "rgb": [144, 200, 255]}
+     ]},
+    {"id": "blt_ball_l", "src": "blt_ball_l-v1.png", "mode": "additive", "size": [28, 28], "out": "ball_l_blue.png", "trim": true,
+     "tints": [
+       {"suffix": "ball_l_blue", "rgb": [90, 138, 255]}
+     ]},
+    {"id": "blt_petal", "src": "blt_petal-v1.png", "mode": "additive", "size": [22, 22], "out": "blt_petal.png", "trim": true,
+     "tints": [
+       {"suffix": "blt_petal", "rgb": [255, 192, 216]}
+     ]},
+    {"id": "blt_butterfly", "src": "blt_butterfly-v1.png", "mode": "additive", "size": [24, 24], "out": "blt_butterfly.png", "trim": true,
+     "tints": [
+       {"suffix": "blt_butterfly", "rgb": [255, 154, 213]}
+     ]},
+    {"id": "opt_turret", "src": "opt_turret-v1.png", "mode": "additive", "size": [28, 28], "out": "opt_turret.png", "trim": true},
+    {"id": "fx_bomb", "src": "fx_bomb-v1.png", "mode": "additive", "size": [512, 512], "out": "fx_bomb.png", "trim": true},
+    {"id": "fx_hyper", "src": "fx_hyper-v1.png", "mode": "additive", "size": [256, 256], "out": "fx_hyper.png", "trim": true},
+    {"id": "logo_emblem", "src": "logo_emblem-v1.png", "mode": "additive", "size": [200, 200], "out": "logo_emblem.png", "trim": true},
+    {"id": "icon_bomb", "src": "icon_bomb-v1.png", "mode": "additive", "size": [24, 24], "out": "icon_bomb.png", "trim": true},
+    {"id": "icon_life", "src": "icon_life-v1.png", "mode": "additive", "size": [24, 24], "out": "icon_life.png", "trim": true},
+    {"id": "bg_stage", "src": "bg_stage-v1.png", "mode": "opaque", "size": [384, 768], "out": "bg_stage.png"},
+    {"id": "bg_finale", "src": "bg_finale-v1.png", "mode": "opaque", "size": [512, 512], "out": "bg_finale.png"},
+    {"id": "hud_panel", "src": "hud_panel-v1.png", "mode": "opaque", "size": [224, 480], "out": "hud_panel.png"},
+    {"id": "title_art", "src": "title_art-v1.png", "mode": "opaque", "size": [640, 480], "out": "title_art.png"},
+    {"id": "warning_banner", "src": "warning_banner-v1.png", "mode": "opaque", "size": [384, 96], "out": "warning_banner.png"}
+  ]
+}
