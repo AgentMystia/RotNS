@@ -41,6 +41,7 @@ export async function renderFrames(
 
   const targets: Record<string, number> = {
     warning: 40,     // WARNING 演出
+    hpcharge: 190,   // HP 条充能期
     p1: 700,         // P1 弹幕战中
     fight: 1200,     // P1 中段
     declare: 3120,   // 符卡宣言 cut-in（P1→P2 转段附近）

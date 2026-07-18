@@ -82,19 +82,19 @@ export function drawHud(R: Renderer, h: HudState, hasPanel: boolean): void {
     R.text('[C] 发动!', PANEL_X + 16, 322, { size: 12, color: '#ffe870' });
   }
 
-  // AUTO 徽标（脉动）
+  // 代打徽标（脉动）
   if (h.aiEnabled) {
     const pulse = 0.55 + 0.45 * Math.sin(performanceNow() * 0.012);
     R.ctx.save();
     R.ctx.globalAlpha = pulse;
     R.ctx.fillStyle = '#20c080';
-    R.ctx.fillRect(PANEL_X + 16, 348, 74, 22);
+    R.ctx.fillRect(PANEL_X + 16, 348, 118, 22);
     R.ctx.restore();
-    R.text('AUTO', PANEL_X + 53, 352, { size: 14, color: '#041008', align: 'center', font: 'monospace' });
+    R.text('FlameTN7代打', PANEL_X + 75, 352, { size: 11, color: '#041008', align: 'center', font: 'monospace' });
   }
 
   // 操作帮助（底部装饰区上方，小号暗色）
-  const help = ['Z 射击 Shift 低速 X Bomb', 'C Hyper  A AI  R 重开  M 静音'];
+  const help = ['Z 射击 Shift 低速 X Bomb', 'C Hyper  A 代打  R 重开  M 静音'];
   help.forEach((s, i) => R.text(s, PANEL_X + 16, 446 + i * 15, { size: 10, color: '#7060a0' }));
 
   // —— Boss HP 条（playfield 顶部，5 段刻度）——

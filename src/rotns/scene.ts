@@ -429,13 +429,14 @@ export class RotnsScene {
   }
 
   private drawBoss(R: Renderer): void {
-    if (this.boss.mode === 'intro' || this.boss.mode === 'warning') return;
+    if (this.boss.mode === 'intro' || this.boss.mode === 'warning' || this.boss.mode === 'cleared') return;
+    R.ctx.save(); // 包住 finalburst 的 alpha 衰减，防泄漏污染同帧后续绘制
     const bx = PLAYFIELD.x + this.boss.x, by = PLAYFIELD.y + this.boss.y;
     const img = R.image('inb_yuyuko_idle');
     const alpha = this.boss.mode === 'fadein' ? this.boss.alpha : 1;
     if (this.boss.mode === 'finalburst') {
       const fade = Math.max(0, 1 - this.finalBurstT / 120);
-      if (fade <= 0) return;
+      if (fade <= 0) { R.ctx.restore(); return; }
       R.ctx.globalAlpha = fade;
     }
     // 发狂段炮台群
@@ -483,6 +484,7 @@ export class RotnsScene {
       R.ctx.restore();
       R.text('结界护罩', bx + 30, by - 40, { size: 12, color: '#ffd040' });
     }
+    R.ctx.restore();
   }
 
   private drawBullets(R: Renderer): void {
@@ -551,16 +553,12 @@ export class RotnsScene {
       }
     }
     R.ctx.restore();
-    // 本体
+    // 本体（贴图保持 idle 不换向 —— 换向帧在小尺寸下读作"消失"）
     const idle = R.image('inb_mystia_idle');
-    const bankImg = R.image('inb_mystia_bank');
     const flicker = this.player.invuln > 0 && (this.absFrame >> 2) % 2 === 0;
     R.ctx.save();
     if (flicker) R.ctx.globalAlpha = 0.45;
-    const useBank = Math.abs(this.player.bank) > 0.35 && bankImg;
-    if (useBank) {
-      R.drawSprite('inb_mystia_bank', 0, 0, bankImg.width, bankImg.height, px, py, { scaleX: this.player.bank > 0 ? -1 : 1 });
-    } else if (idle) {
+    if (idle) {
       R.drawSprite('inb_mystia_idle', 0, 0, idle.width, idle.height, px, py, {});
     } else {
       R.ctx.fillStyle = '#ffc0d0';

@@ -130,6 +130,9 @@ export class YuyukoBoss {
     }
     if (this.mode === 'hpcharge') {
       this.hpCharge = Math.min(1, this.modeFrame / CFG.boss.hpChargeFrames);
+      // 充能期同步血量，让 HP 条从 0 充到满（PLAN "HP 条充能 1s"）
+      this.hpMax = CFG.phases[this.phaseIndex].hp;
+      this.hp = this.hpMax * this.hpCharge;
       const pos = this.driftPos(absFrame);
       this.x = pos.x; this.y = pos.y;
       if (this.hpCharge >= 1) return 'hpcharge-done';

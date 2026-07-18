@@ -10,7 +10,7 @@ export interface TitleChoice {
 export class TitleScene {
   private sel = 0;
   private frame = 0;
-  private readonly items = ['GAME START', 'AUTOPLAY (AI)', '操作说明'];
+  private readonly items = ['GAME START', '操作说明'];
   private showHelp = false;
 
   update(input: { held: ReadonlySet<Button>; pressed: ReadonlySet<Button> }): TitleChoice | null {
@@ -23,8 +23,8 @@ export class TitleScene {
     if (p.has('up')) this.sel = (this.sel + this.items.length - 1) % this.items.length;
     if (p.has('down')) this.sel = (this.sel + 1) % this.items.length;
     if (p.has('confirm')) {
-      if (this.sel === 2) { this.showHelp = true; return null; }
-      return { start: true, autoplay: this.sel === 1 };
+      if (this.sel === 1) { this.showHelp = true; return null; }
+      return { start: true, autoplay: false };
     }
     return null;
   }
@@ -60,13 +60,13 @@ export class TitleScene {
         'Shift : 低速移动（显示判定点）',
         'X : Bomb（街机式·清屏·对BOSS弱）',
         'C : Hyper 发动（量表满时）',
-        'A : AI 接管 ON/OFF（默认关）',
+        'A : FlameTN7代打 ON/OFF（默认关）',
         'R : 立即重开    M : 静音',
         '',
         '擦弹与命中可积攒 HYPER 量表。',
         'Bomb 与 Hyper 互斥；被弹无 deathbomb。',
         'BOSS 为五段式传说级弹幕，人类几乎不可能通关',
-        '—— 请多用 AUTOPLAY 观赏 AI 的走位。',
+        '—— 请多欣赏 FlameTN7 的走位。',
       ];
       lines.forEach((s, i) => R.text(s, 130, 108 + i * 22, { size: 12, color: '#d8c8f0' }));
       R.ctx.restore();

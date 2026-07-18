@@ -881,13 +881,13 @@
       options: {
         count: 6,
         radius: 56,
-        omega: 0.03,
+        omega: 0.034,
         interval: 4,
-        speedFast: 4.4,
-        speedSlow: 2.6
+        speedFast: 6,
+        speedSlow: 3.4
       },
-      redRing: { interval: 30, ways: 16, speed: 3.2, dBase: 0.12 },
-      fugu: { interval: 90, fans: 3, petalsPerFan: 24, speed: 1.8, fanDeg: 60 },
+      redRing: { interval: 30, ways: 16, speed: 4, dBase: 0.12 },
+      fugu: { interval: 90, fans: 3, petalsPerFan: 24, speed: 2.4, fanDeg: 60 },
       gamble: { everyVolleys: 32, wFlip: 3, wJump: 3, wNone: 4, phaseJump: 0.35 }
     },
     bullets: {
@@ -1612,6 +1612,8 @@
       }
       if (this.mode === "hpcharge") {
         this.hpCharge = Math.min(1, this.modeFrame / CFG.boss.hpChargeFrames);
+        this.hpMax = CFG.phases[this.phaseIndex].hp;
+        this.hp = this.hpMax * this.hpCharge;
         const pos = this.driftPos(absFrame);
         this.x = pos.x;
         this.y = pos.y;
@@ -1813,11 +1815,11 @@
       R.ctx.save();
       R.ctx.globalAlpha = pulse;
       R.ctx.fillStyle = "#20c080";
-      R.ctx.fillRect(PANEL_X + 16, 348, 74, 22);
+      R.ctx.fillRect(PANEL_X + 16, 348, 118, 22);
       R.ctx.restore();
-      R.text("AUTO", PANEL_X + 53, 352, { size: 14, color: "#041008", align: "center", font: "monospace" });
+      R.text("FlameTN7\u4EE3\u6253", PANEL_X + 75, 352, { size: 11, color: "#041008", align: "center", font: "monospace" });
     }
-    const help = ["Z \u5C04\u51FB Shift \u4F4E\u901F X Bomb", "C Hyper  A AI  R \u91CD\u5F00  M \u9759\u97F3"];
+    const help = ["Z \u5C04\u51FB Shift \u4F4E\u901F X Bomb", "C Hyper  A \u4EE3\u6253  R \u91CD\u5F00  M \u9759\u97F3"];
     help.forEach((s, i) => R.text(s, PANEL_X + 16, 446 + i * 15, { size: 10, color: "#7060a0" }));
     if (h.bossActive) {
       const bx = PLAYFIELD.x + 6, bw = PLAYFIELD.width - 12, by = PLAYFIELD.y + 4;
@@ -2221,13 +2223,17 @@
       }
     }
     drawBoss(R) {
-      if (this.boss.mode === "intro" || this.boss.mode === "warning") return;
+      if (this.boss.mode === "intro" || this.boss.mode === "warning" || this.boss.mode === "cleared") return;
+      R.ctx.save();
       const bx = PLAYFIELD.x + this.boss.x, by = PLAYFIELD.y + this.boss.y;
       const img = R.image("inb_yuyuko_idle");
       const alpha = this.boss.mode === "fadein" ? this.boss.alpha : 1;
       if (this.boss.mode === "finalburst") {
         const fade = Math.max(0, 1 - this.finalBurstT / 120);
-        if (fade <= 0) return;
+        if (fade <= 0) {
+          R.ctx.restore();
+          return;
+        }
         R.ctx.globalAlpha = fade;
       }
       if (this.boss.phaseId === "finale" && (this.boss.inCombat || this.boss.mode === "declare")) {
@@ -2284,6 +2290,7 @@
         R.ctx.restore();
         R.text("\u7ED3\u754C\u62A4\u7F69", bx + 30, by - 40, { size: 12, color: "#ffd040" });
       }
+      R.ctx.restore();
     }
     drawBullets(R) {
       R.ctx.save();
@@ -2346,14 +2353,10 @@
       }
       R.ctx.restore();
       const idle = R.image("inb_mystia_idle");
-      const bankImg = R.image("inb_mystia_bank");
       const flicker = this.player.invuln > 0 && (this.absFrame >> 2) % 2 === 0;
       R.ctx.save();
       if (flicker) R.ctx.globalAlpha = 0.45;
-      const useBank = Math.abs(this.player.bank) > 0.35 && bankImg;
-      if (useBank) {
-        R.drawSprite("inb_mystia_bank", 0, 0, bankImg.width, bankImg.height, px, py, { scaleX: this.player.bank > 0 ? -1 : 1 });
-      } else if (idle) {
+      if (idle) {
         R.drawSprite("inb_mystia_idle", 0, 0, idle.width, idle.height, px, py, {});
       } else {
         R.ctx.fillStyle = "#ffc0d0";
@@ -2567,7 +2570,7 @@
     constructor() {
       this.sel = 0;
       this.frame = 0;
-      this.items = ["GAME START", "AUTOPLAY (AI)", "\u64CD\u4F5C\u8BF4\u660E"];
+      this.items = ["GAME START", "\u64CD\u4F5C\u8BF4\u660E"];
       this.showHelp = false;
     }
     update(input) {
@@ -2580,11 +2583,11 @@
       if (p.has("up")) this.sel = (this.sel + this.items.length - 1) % this.items.length;
       if (p.has("down")) this.sel = (this.sel + 1) % this.items.length;
       if (p.has("confirm")) {
-        if (this.sel === 2) {
+        if (this.sel === 1) {
           this.showHelp = true;
           return null;
         }
-        return { start: true, autoplay: this.sel === 1 };
+        return { start: true, autoplay: false };
       }
       return null;
     }
@@ -2620,13 +2623,13 @@
           "Shift : \u4F4E\u901F\u79FB\u52A8\uFF08\u663E\u793A\u5224\u5B9A\u70B9\uFF09",
           "X : Bomb\uFF08\u8857\u673A\u5F0F\xB7\u6E05\u5C4F\xB7\u5BF9BOSS\u5F31\uFF09",
           "C : Hyper \u53D1\u52A8\uFF08\u91CF\u8868\u6EE1\u65F6\uFF09",
-          "A : AI \u63A5\u7BA1 ON/OFF\uFF08\u9ED8\u8BA4\u5173\uFF09",
+          "A : FlameTN7\u4EE3\u6253 ON/OFF\uFF08\u9ED8\u8BA4\u5173\uFF09",
           "R : \u7ACB\u5373\u91CD\u5F00    M : \u9759\u97F3",
           "",
           "\u64E6\u5F39\u4E0E\u547D\u4E2D\u53EF\u79EF\u6512 HYPER \u91CF\u8868\u3002",
           "Bomb \u4E0E Hyper \u4E92\u65A5\uFF1B\u88AB\u5F39\u65E0 deathbomb\u3002",
           "BOSS \u4E3A\u4E94\u6BB5\u5F0F\u4F20\u8BF4\u7EA7\u5F39\u5E55\uFF0C\u4EBA\u7C7B\u51E0\u4E4E\u4E0D\u53EF\u80FD\u901A\u5173",
-          "\u2014\u2014 \u8BF7\u591A\u7528 AUTOPLAY \u89C2\u8D4F AI \u7684\u8D70\u4F4D\u3002"
+          "\u2014\u2014 \u8BF7\u591A\u6B23\u8D4F FlameTN7 \u7684\u8D70\u4F4D\u3002"
         ];
         lines.forEach((s, i) => R.text(s, 130, 108 + i * 22, { size: 12, color: "#d8c8f0" }));
         R.ctx.restore();

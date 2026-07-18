@@ -112,11 +112,11 @@ export const CFG = {
   // —— 发狂 洗衣机 ——
   finale: {
     options: {
-      count: 6, radius: 56, omega: 0.030,
-      interval: 4, speedFast: 4.4, speedSlow: 2.6,
+      count: 6, radius: 56, omega: 0.034,
+      interval: 4, speedFast: 6.0, speedSlow: 3.4,
     },
-    redRing: { interval: 30, ways: 16, speed: 3.2, dBase: 0.12 },
-    fugu: { interval: 90, fans: 3, petalsPerFan: 24, speed: 1.8, fanDeg: 60 },
+    redRing: { interval: 30, ways: 16, speed: 4.0, dBase: 0.12 },
+    fugu: { interval: 90, fans: 3, petalsPerFan: 24, speed: 2.4, fanDeg: 60 },
     gamble: { everyVolleys: 32, wFlip: 3, wJump: 3, wNone: 4, phaseJump: 0.35 },
   },
 
